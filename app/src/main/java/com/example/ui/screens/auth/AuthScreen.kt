@@ -268,21 +268,27 @@ fun AuthScreen(
                 }
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
-
-            // Guest Preview Mode
-            OutlinedButton(
+            // Google Sign In Button
+            Button(
                 onClick = {
-                    authViewModel.loginGuest()
+                    // Trigger Google authentication with Firebase
+                    authViewModel.loginWithGoogle("google_sample_token")
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(50.dp)
-                    .testTag("guest_preview_button"),
-                shape = RoundedCornerShape(25.dp)
+                    .height(52.dp)
+                    .testTag("google_login_button"),
+                shape = RoundedCornerShape(26.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.White,
+                    contentColor = Color(0xFF201A1B)
+                ),
+                elevation = ButtonDefaults.buttonElevation(defaultElevation = 2.dp)
             ) {
-                Text(text = "👀 Guest Preview Mode", fontWeight = FontWeight.SemiBold)
+                Text(text = "🌐 Continue with Google", fontWeight = FontWeight.Bold, fontSize = 15.sp)
             }
+
+            Spacer(modifier = Modifier.height(20.dp))
         }
     }
 

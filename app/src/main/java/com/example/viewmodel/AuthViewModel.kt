@@ -45,6 +45,17 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
         }
     }
 
+    fun loginWithGoogle(idToken: String) {
+        viewModelScope.launch {
+            _uiState.value = AuthUiState.Loading
+            val res = authRepository.signInWithGoogleToken(idToken)
+            res.fold(
+                onSuccess = { user -> _uiState.value = AuthUiState.Authenticated(user) },
+                onFailure = { err -> _uiState.value = AuthUiState.Error(err.message ?: "Google Sign-In failed") }
+            )
+        }
+    }
+
     fun loginGuest() {
         val user = authRepository.loginAsGuest()
         _uiState.value = AuthUiState.Authenticated(user)

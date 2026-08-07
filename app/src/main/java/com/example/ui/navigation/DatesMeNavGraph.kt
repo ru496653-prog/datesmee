@@ -115,36 +115,16 @@ fun DatesMeNavGraph(
                 .fillMaxSize()
                 .background(Color(0xFFFCF8F9))
         ) {
-            // Ambient Decorative Blurs for Frosted Glass Depth
-            Box(
-                modifier = Modifier
-                    .size(240.dp)
-                    .offset(x = (-40).dp, y = 120.dp)
-                    .blur(60.dp)
-                    .background(Color(0x20F27D26), CircleShape)
-            )
-            Box(
-                modifier = Modifier
-                    .size(260.dp)
-                    .offset(x = 220.dp, y = 480.dp)
-                    .blur(70.dp)
-                    .background(Color(0x209C4275), CircleShape)
-            )
-
             Scaffold(
                 modifier = Modifier.testTag("datesme_nav_scaffold"),
-                containerColor = Color.Transparent,
+                containerColor = Color(0xFFFCF8F9),
                 bottomBar = {
-                    if (showBars) {
+                    if (showBars && currentRoute != "create_profile") {
                         NavigationBar(
                             modifier = Modifier
-                                .clip(RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp))
-                                .border(
-                                    BorderStroke(1.dp, Color.White.copy(alpha = 0.6f)),
-                                    shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp)
-                                )
+                                .clip(RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp))
                                 .testTag("datesme_bottom_nav"),
-                            containerColor = Color(0xDCFCECEF),
+                            containerColor = Color.White,
                             contentColor = Color(0xFF201A1B)
                         ) {
                             val items = listOf(
@@ -181,8 +161,8 @@ fun DatesMeNavGraph(
                                         )
                                     },
                                     colors = NavigationBarItemDefaults.colors(
-                                        selectedIconColor = Color(0xFF31101D),
-                                        selectedTextColor = Color(0xFF31101D),
+                                        selectedIconColor = Color(0xFF9C4275),
+                                        selectedTextColor = Color(0xFF9C4275),
                                         indicatorColor = Color(0xFFFFD9E2),
                                         unselectedIconColor = Color(0xFF201A1B).copy(alpha = 0.5f),
                                         unselectedTextColor = Color(0xFF201A1B).copy(alpha = 0.5f)
@@ -195,15 +175,32 @@ fun DatesMeNavGraph(
             ) { innerPadding ->
                 NavHost(
                     navController = navController,
-                    startDestination = if (currentUser == null) "auth" else "discover",
+                    startDestination = if (currentUser == null) "auth" else if (myProfile?.isProfileComplete == false) "create_profile" else "discover",
                     modifier = Modifier.padding(innerPadding)
                 ) {
                     composable("auth") {
                         AuthScreen(
                             authViewModel = authViewModel,
                             onAuthSuccess = {
+                                if (myProfile?.isProfileComplete == true) {
+                                    navController.navigate("discover") {
+                                        popUpTo("auth") { inclusive = true }
+                                    }
+                                } else {
+                                    navController.navigate("create_profile") {
+                                        popUpTo("auth") { inclusive = true }
+                                    }
+                                }
+                            }
+                        )
+                    }
+
+                    composable("create_profile") {
+                        com.example.ui.screens.profile.CreateProfileScreen(
+                            profileViewModel = profileViewModel,
+                            onProfileCreated = {
                                 navController.navigate("discover") {
-                                    popUpTo("auth") { inclusive = true }
+                                    popUpTo("create_profile") { inclusive = true }
                                 }
                             }
                         )

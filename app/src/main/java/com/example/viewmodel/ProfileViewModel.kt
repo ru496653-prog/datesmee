@@ -27,13 +27,14 @@ class ProfileViewModel(private val profileRepository: ProfileRepository) : ViewM
                 val newProfile = UserProfile(
                     id = "my_user_id",
                     displayName = "New User",
-                    age = 24,
-                    gender = "Female",
-                    lookingFor = "Everyone",
-                    bio = "Coffee enthusiast, world traveler, and tech explorer. Looking for genuine connection!",
-                    occupation = "Creative Designer",
-                    education = "Stanford University",
-                    city = "San Francisco, CA"
+                    age = 20,
+                    gender = "Male",
+                    lookingFor = "Female",
+                    bio = "",
+                    occupation = "",
+                    education = "",
+                    city = "",
+                    isProfileComplete = false
                 )
                 profileRepository.saveProfile(newProfile)
                 _myProfile.value = newProfile

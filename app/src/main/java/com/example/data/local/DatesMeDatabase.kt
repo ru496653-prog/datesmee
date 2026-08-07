@@ -18,7 +18,7 @@ import com.example.data.model.UserSettings
         ActivityItem::class,
         UserSettings::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class DatesMeDatabase : RoomDatabase() {

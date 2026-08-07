@@ -62,9 +62,9 @@ fun EmptyStateView(
                     spotColor = Color(0x269C4275),
                     ambientColor = Color(0x1A9C4275)
                 ),
-            shape = RoundedCornerShape(40.dp),
-            color = Color.White.copy(alpha = 0.65f),
-            border = BorderStroke(1.5.dp, Color.White.copy(alpha = 0.85f))
+            shape = RoundedCornerShape(32.dp),
+            color = Color.White,
+            border = BorderStroke(1.dp, Color(0xFFFFD9E2))
         ) {
             Column(
                 modifier = Modifier

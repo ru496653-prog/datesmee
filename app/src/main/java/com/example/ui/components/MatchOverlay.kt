@@ -55,9 +55,9 @@ fun MatchOverlayDialog(
                     spotColor = Color(0x339C4275)
                 )
                 .testTag("match_overlay_dialog"),
-            shape = RoundedCornerShape(36.dp),
-            color = Color.White.copy(alpha = 0.85f),
-            border = BorderStroke(1.5.dp, Color.White)
+            shape = RoundedCornerShape(32.dp),
+            color = Color.White,
+            border = BorderStroke(1.dp, Color(0xFFFFD9E2))
         ) {
             Column(
                 modifier = Modifier

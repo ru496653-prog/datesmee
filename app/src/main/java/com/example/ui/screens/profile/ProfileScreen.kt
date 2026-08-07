@@ -103,11 +103,11 @@ fun ProfileScreen(
 
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
-                    text = "${myProfile?.displayName ?: "User"}, ${myProfile?.age ?: 24}",
+                    text = "${myProfile?.displayName ?: "User"}, ${myProfile?.age ?: 18}",
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold
                 )
-                if (myProfile?.isVerified == true) {
+                if (myProfile?.isVerified == true || myProfile?.isCitizenshipUploaded == true) {
                     Spacer(modifier = Modifier.width(6.dp))
                     Icon(
                         imageVector = Icons.Default.CheckCircle,
@@ -118,53 +118,47 @@ fun ProfileScreen(
             }
 
             Text(
-                text = "Completion Score: ${myProfile?.profileScore ?: 85}%",
+                text = "${myProfile?.gender ?: "Male"} • Seeking ${myProfile?.lookingFor ?: "Female"} (16+ Straight Dating)",
                 style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.primary
+                color = MaterialTheme.colorScheme.primary,
+                fontWeight = FontWeight.SemiBold
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
-            // Verification Card
-            if (myProfile?.isVerified == false) {
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(20.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f)
-                    )
+            // Citizenship Verification Card
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(20.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = if (myProfile?.isCitizenshipUploaded == true) Color(0xFFE8F5E9) else Color(0xFFFFF0F5)
+                )
+            ) {
+                Row(
+                    modifier = Modifier.padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Row(
-                        modifier = Modifier.padding(16.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.VerifiedUser,
-                            contentDescription = "Verify",
-                            tint = MaterialTheme.colorScheme.primary,
-                            modifier = Modifier.size(32.dp)
+                    Icon(
+                        imageVector = Icons.Default.VerifiedUser,
+                        contentDescription = "Verify",
+                        tint = if (myProfile?.isCitizenshipUploaded == true) Color(0xFF2E7D32) else MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.size(32.dp)
+                    )
+                    Spacer(modifier = Modifier.width(16.dp))
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = if (myProfile?.isCitizenshipUploaded == true) "Citizenship ID Verified ✓" else "Citizenship Document Status",
+                            fontWeight = FontWeight.Bold,
+                            color = if (myProfile?.isCitizenshipUploaded == true) Color(0xFF1B5E20) else Color(0xFF201A1B)
                         )
-                        Spacer(modifier = Modifier.width(16.dp))
-                        Column(modifier = Modifier.weight(1f)) {
-                            Text(
-                                text = "Get Verified Badge",
-                                fontWeight = FontWeight.Bold
-                            )
-                            Text(
-                                text = "Show matches you are authentic",
-                                style = MaterialTheme.typography.bodySmall
-                            )
-                        }
-                        Button(
-                            onClick = { profileViewModel.submitVerificationPhoto("sample") },
-                            shape = RoundedCornerShape(16.dp)
-                        ) {
-                            Text("Verify")
-                        }
+                        Text(
+                            text = if (myProfile?.isCitizenshipUploaded == true) "Your citizenship identity is verified" else "Upload ID photo in profile setup for instant verification",
+                            style = MaterialTheme.typography.bodySmall
+                        )
                     }
                 }
-                Spacer(modifier = Modifier.height(20.dp))
             }
+            Spacer(modifier = Modifier.height(20.dp))
 
             // Edit Profile Card
             Card(

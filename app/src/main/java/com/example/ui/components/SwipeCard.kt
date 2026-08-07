@@ -46,6 +46,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 import com.example.data.model.UserProfile
 import kotlinx.coroutines.launch
@@ -167,27 +168,34 @@ fun SwipeCard(
 
                     Spacer(modifier = Modifier.weight(1f))
 
-                    // Frosted Glass Detail Card Container
+                    // Polished Solid Detail Card Container
                     Surface(
                         modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(28.dp),
-                        color = Color.White.copy(alpha = 0.22f),
-                        border = BorderStroke(1.dp, Color.White.copy(alpha = 0.45f))
+                        shape = RoundedCornerShape(24.dp),
+                        color = Color(0xEA1A1215),
+                        border = BorderStroke(1.dp, Color(0xFF9C4275))
                     ) {
                         Column(modifier = Modifier.padding(18.dp)) {
-                            Text(
-                                text = "${profile.displayName}, ${profile.age}",
-                                style = MaterialTheme.typography.headlineMedium,
-                                fontWeight = FontWeight.Bold,
-                                color = Color.White
-                            )
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text(
+                                    text = "${profile.displayName}, ${profile.age}",
+                                    style = MaterialTheme.typography.headlineSmall,
+                                    fontWeight = FontWeight.ExtraBold,
+                                    color = Color.White
+                                )
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text(
+                                    text = if (profile.gender == "Male") "🙋‍♂️" else "🙋‍♀️",
+                                    fontSize = 18.sp
+                                )
+                            }
 
                             if (profile.occupation.isNotBlank()) {
-                                Spacer(modifier = Modifier.height(2.dp))
+                                Spacer(modifier = Modifier.height(4.dp))
                                 Text(
                                     text = "💼 ${profile.occupation}",
                                     style = MaterialTheme.typography.bodyMedium,
-                                    color = Color.White.copy(alpha = 0.95f)
+                                    color = Color(0xFFFFD9E2)
                                 )
                             }
 
@@ -196,7 +204,7 @@ fun SwipeCard(
                                 Text(
                                     text = profile.bio,
                                     style = MaterialTheme.typography.bodyMedium,
-                                    color = Color.White.copy(alpha = 0.85f),
+                                    color = Color.White.copy(alpha = 0.9f),
                                     maxLines = 2
                                 )
                             }

@@ -59,9 +59,9 @@ fun DatesMeTopBar(
                     spotColor = Color(0x1A9C4275)
                 )
                 .clip(RoundedCornerShape(29.dp))
-                .background(Color.White.copy(alpha = 0.55f))
+                .background(Color.White)
                 .border(
-                    BorderStroke(1.2.dp, Color.White.copy(alpha = 0.8f)),
+                    BorderStroke(1.dp, Color(0xFFF0E4E8)),
                     shape = RoundedCornerShape(29.dp)
                 )
                 .padding(horizontal = 8.dp),
