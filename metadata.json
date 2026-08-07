@@ -1,0 +1,7 @@
+{
+  "name": "DatesMe",
+  "description": "Premium, production-ready dating application with fluid swiping, real-time messaging, themes, and rich profile matching.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
